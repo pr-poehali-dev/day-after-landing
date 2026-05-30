@@ -110,10 +110,21 @@ function Hero({ onRegister }: { onRegister: () => void }) {
   return (
     <section className="relative min-h-screen flex flex-col justify-center overflow-hidden" id="hero">
       <div className="absolute inset-0">
-        <img src={HERO_IMAGE} alt="DAY AFTER" className="w-full h-full object-cover opacity-30" />
-        <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(22,22,22,0.5) 0%, rgba(22,22,22,0.7) 60%, #161616 100%)" }} />
-        <div className="absolute inset-0 opacity-10" style={{ background: "radial-gradient(ellipse at 20% 50%, rgba(132,153,79,0.6) 0%, transparent 60%)" }} />
-        <div className="absolute inset-0 opacity-10" style={{ background: "radial-gradient(ellipse at 80% 30%, rgba(186,63,83,0.4) 0%, transparent 50%)" }} />
+        {/* Постапокалиптическое фото */}
+        <img src={HERO_IMAGE} alt="DAY AFTER" className="w-full h-full object-cover opacity-20" />
+        {/* Чернильная акварельная текстура поверх */}
+        <img
+          src="https://cdn.poehali.dev/projects/95220a86-5ef3-4f3a-b595-17cb404449a0/bucket/db6a987b-94b4-4f13-aa41-dd84c1efa750.jpg"
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{ opacity: 0.35, mixBlendMode: "multiply" }}
+        />
+        {/* Затемняющий градиент */}
+        <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(22,22,22,0.4) 0%, rgba(22,22,22,0.55) 50%, #161616 100%)" }} />
+        {/* Красный ореол слева */}
+        <div className="absolute inset-0 opacity-12" style={{ background: "radial-gradient(ellipse at 15% 55%, rgba(186,63,83,0.5) 0%, transparent 55%)" }} />
+        {/* Зелёный ореол справа — вспомогательный */}
+        <div className="absolute inset-0 opacity-8" style={{ background: "radial-gradient(ellipse at 85% 25%, rgba(132,153,79,0.35) 0%, transparent 50%)" }} />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 pt-24 pb-20">
@@ -220,7 +231,7 @@ const utpItems = [
 
 function UTP() {
   return (
-    <section id="utp" className="py-28" style={{ background: "#1a1a1a" }}>
+    <section id="utp" className="py-28" style={{ background: "rgba(20,20,20,0.82)" }}>
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-16">
           <p className="section-label">Почему мы</p>
@@ -331,7 +342,7 @@ function EventCard({ ev }: { ev: typeof events[0] }) {
 
 function Events() {
   return (
-    <section id="events" className="py-28" style={{ background: "#1a1a1a" }}>
+    <section id="events" className="py-28" style={{ background: "rgba(20,20,20,0.82)" }}>
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-16">
           <p className="section-label">Расписание</p>
@@ -400,7 +411,7 @@ function Register() {
     setSubmitted(true);
   };
   return (
-    <section id="register" className="py-28 relative overflow-hidden" style={{ background: "#1a1a1a" }}>
+    <section id="register" className="py-28 relative overflow-hidden" style={{ background: "rgba(20,20,20,0.82)" }}>
       <div className="absolute inset-0 opacity-10" style={{ background: "radial-gradient(ellipse at 50% 0%, rgba(132,153,79,0.6) 0%, transparent 60%)" }} />
       <div className="relative max-w-lg mx-auto px-6">
         <div className="text-center mb-12">
@@ -479,7 +490,7 @@ function Footer() {
     { icon: "Youtube", label: "YouTube", href: "https://youtube.com/" },
   ];
   return (
-    <footer id="footer" style={{ background: "#0e0e0e", borderTop: "1px solid rgba(132,153,79,0.1)" }}>
+    <footer id="footer" style={{ background: "rgba(10,10,10,0.92)", borderTop: "1px solid rgba(186,63,83,0.15)" }}>
       <div className="max-w-7xl mx-auto px-6 py-16">
         <div className="grid md:grid-cols-4 gap-12 mb-12">
           <div className="md:col-span-2">
