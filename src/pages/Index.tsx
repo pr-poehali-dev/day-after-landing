@@ -137,8 +137,12 @@ function Hero({ onRegister }: { onRegister: () => void }) {
             />
           </div>
           <div className="green-line animate-fade-up opacity-0 delay-300" />
-          <p className="text-lg md:text-xl font-body font-light leading-relaxed mb-10 animate-fade-up opacity-0 delay-400" style={{ color: "#9A9390", maxWidth: "520px" }}>
-            Единственный RP-проект по вселенной The Last Of Us в русскоязычном сегменте. Мир захвачен кордицепсом. Каждый день — испытание.
+          <p className="font-heading text-base tracking-[0.25em] uppercase mb-5 animate-fade-up opacity-0 delay-350" style={{ color: "#BA3F53" }}>
+            Выжить. Решить. Надеяться.
+          </p>
+          <p className="text-lg md:text-xl font-body font-light leading-relaxed mb-10 animate-fade-up opacity-0 delay-400" style={{ color: "#9A9390", maxWidth: "480px" }}>
+            Единственный RP-проект по вселенной<br className="hidden sm:block" /> The Last Of Us в русскоязычном сегменте.<br />
+            Мир захвачен кордицепсом. Каждый день — испытание.
           </p>
           <div className="flex flex-wrap gap-4 animate-fade-up opacity-0 delay-500">
             <button onClick={onRegister} className="btn-primary gap-2 text-sm">
@@ -510,7 +514,7 @@ function Footer() {
               />
             </div>
             <p className="font-body text-sm leading-relaxed mb-6" style={{ color: "#5a5654", maxWidth: "300px" }}>
-              Единственный ролевой проект по The Last Of Us в русскоязычном Garry's Mod. Мир захвачен. Выживи.
+              Единственный ролевой проект по The Last Of Us в русскоязычном Garry's Mod.
             </p>
             <div className="flex gap-4">
               {socials.map((s) => (
