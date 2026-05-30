@@ -193,8 +193,8 @@ function About() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="grid md:grid-cols-2 gap-8 md:gap-16 items-center">
           <div>
-            <p className="section-label">О проекте</p>
-            <h2 className="section-title mb-6">Мир на грани<br /><span style={{ color: "#BA3F53" }}>выживания</span></h2>
+            <p className="section-label text-left">О проекте</p>
+            <h2 className="section-title text-left mb-6">Мир на грани<br /><span style={{ color: "#BA3F53" }}>выживания</span></h2>
             <div className="accent-line" />
             <p className="font-body text-base leading-relaxed mb-6" style={{ color: "#9A9390" }}>
               DAY AFTER — это динамичный и атмосферный ролевой проект, который переносит тебя в постапокалиптическую вселенную The Last Of Us прямо в Garry's Mod.
@@ -248,8 +248,8 @@ function UTP() {
     <section id="utp" className="py-16 sm:py-28" style={{ background: "#1a1a1a" }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="text-center mb-10 sm:mb-16">
-          <p className="section-label">Почему мы</p>
-          <h2 className="section-title">Уникальность <span style={{ color: "#BA3F53" }}>проекта</span></h2>
+          <p className="section-label text-center">Почему мы</p>
+          <h2 className="section-title text-center">Уникальность <span style={{ color: "#BA3F53" }}>проекта</span></h2>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {utpItems.map((item, i) => (
@@ -279,8 +279,8 @@ function Factions() {
     <section className="py-16 sm:py-28">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="text-center mb-10 sm:mb-16">
-          <p className="section-label">Выбери сторону</p>
-          <h2 className="section-title">Фракции</h2>
+          <p className="section-label text-center">Выбери сторону</p>
+          <h2 className="section-title text-center">Фракции</h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
           {factions.map((f, i) => (
@@ -359,8 +359,8 @@ function Events() {
     <section id="events" className="py-16 sm:py-28" style={{ background: "#1a1a1a" }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="text-center mb-10 sm:mb-16">
-          <p className="section-label">Расписание</p>
-          <h2 className="section-title">Предстоящие <span style={{ color: "#BA3F53" }}>события</span></h2>
+          <p className="section-label text-center">Расписание</p>
+          <h2 className="section-title text-center">Предстоящие <span style={{ color: "#BA3F53" }}>события</span></h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
           {events.map((ev, i) => <EventCard key={i} ev={ev} />)}
@@ -390,8 +390,8 @@ function FAQ() {
     <section id="faq" className="py-16 sm:py-28">
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
         <div className="text-center mb-10 sm:mb-16">
-          <p className="section-label">Вопросы и ответы</p>
-          <h2 className="section-title">Частые <span style={{ color: "#BA3F53" }}>вопросы</span></h2>
+          <p className="section-label text-center">Вопросы и ответы</p>
+          <h2 className="section-title text-center">Частые <span style={{ color: "#BA3F53" }}>вопросы</span></h2>
         </div>
         <div className="space-y-0">
           {faqs.map((faq, i) => (
@@ -429,8 +429,8 @@ function Register() {
       <div className="absolute inset-0 opacity-10" style={{ background: "radial-gradient(ellipse at 50% 0%, rgba(132,153,79,0.6) 0%, transparent 60%)" }} />
       <div className="relative max-w-lg mx-auto px-4 sm:px-6">
         <div className="text-center mb-12">
-          <p className="section-label">Вступить в ряды</p>
-          <h2 className="section-title">Регистрация</h2>
+          <p className="section-label text-center">Вступить в ряды</p>
+          <h2 className="section-title text-center">Регистрация</h2>
           <p className="font-body text-sm mt-4" style={{ color: "#9A9390" }}>Создай аккаунт и получи доступ к серверу</p>
         </div>
 
@@ -506,7 +506,7 @@ function Footer() {
   return (
     <footer id="footer" style={{ background: "#0e0e0e", borderTop: "1px solid rgba(132,153,79,0.1)" }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
-        <div className="grid md:grid-cols-4 gap-6 sm:gap-12 mb-8 sm:mb-12">
+        <div className="grid md:grid-cols-4 gap-6 sm:gap-12 mb-8 sm:mb-12 items-start">
           <div className="md:col-span-2">
             <div className="mb-4">
               <img
