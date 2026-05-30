@@ -27,7 +27,7 @@ function useCountdown(targetDate: string) {
 function CountdownUnit({ val, label }: { val: number; label: string }) {
   return (
     <div className="flex flex-col items-center">
-      <span className="font-heading text-2xl font-bold" style={{ color: "#EAAD25" }}>
+      <span className="font-heading text-lg sm:text-2xl font-bold" style={{ color: "#EAAD25" }}>
         {String(val).padStart(2, "0")}
       </span>
       <span className="text-[10px] tracking-widest uppercase" style={{ color: "#9A9390" }}>{label}</span>
@@ -56,7 +56,7 @@ function Nav({ onRegister }: { onRegister: () => void }) {
       className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
       style={{ background: scrolled ? "rgba(14,14,14,0.97)" : "transparent", borderBottom: scrolled ? "1px solid rgba(132,153,79,0.15)" : "none" }}
     >
-      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between h-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
         <a href="#" className="flex items-center">
           <img
             src="https://cdn.poehali.dev/projects/95220a86-5ef3-4f3a-b595-17cb404449a0/bucket/472727f6-20d0-42af-b38c-3db21d83cf5a.png"
@@ -94,9 +94,9 @@ function Nav({ onRegister }: { onRegister: () => void }) {
       </div>
 
       {menuOpen && (
-        <div className="md:hidden px-6 pb-6 pt-2" style={{ background: "rgba(14,14,14,0.98)" }}>
+        <div className="md:hidden px-4 pb-6 pt-2" style={{ background: "rgba(14,14,14,0.98)" }}>
           {links.map((l) => (
-            <a key={l.href} href={l.href} className="block py-3 nav-link text-base border-b" style={{ borderColor: "rgba(154,147,144,0.1)" }} onClick={() => setMenuOpen(false)}>
+            <a key={l.href} href={l.href} className="block py-3 nav-link text-sm border-b" style={{ borderColor: "rgba(154,147,144,0.1)" }} onClick={() => setMenuOpen(false)}>
               {l.label}
             </a>
           ))}
@@ -153,7 +153,7 @@ function Hero({ onRegister }: { onRegister: () => void }) {
             </button>
             <a
               href="#about"
-              className="inline-flex items-center gap-2 px-8 py-3 font-heading text-sm tracking-widest uppercase transition-all duration-300"
+              className="inline-flex items-center gap-2 px-5 sm:px-8 py-3 font-heading text-xs sm:text-sm tracking-widest uppercase transition-all duration-300"
               style={{ border: "1px solid rgba(154,147,144,0.3)", color: "#9A9390" }}
               onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.borderColor = "#BA3F53"; (e.currentTarget as HTMLAnchorElement).style.color = "#BA3F53"; }}
               onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(154,147,144,0.3)"; (e.currentTarget as HTMLAnchorElement).style.color = "#9A9390"; }}
@@ -162,15 +162,15 @@ function Hero({ onRegister }: { onRegister: () => void }) {
             </a>
           </div>
 
-          <div className="flex gap-8 mt-16 animate-fade-up opacity-0 delay-600">
+          <div className="flex gap-4 sm:gap-8 mt-8 sm:mt-16 animate-fade-up opacity-0 delay-600">
             {[
               { val: "1", label: "Единственный TLOU RP" },
               { val: "24/7", label: "Онлайн" },
               { val: "100+", label: "Игровых событий" },
             ].map((s) => (
               <div key={s.label}>
-                <div className="font-heading text-3xl font-bold text-white">{s.val}</div>
-                <div className="text-xs tracking-wider mt-1" style={{ color: "#9A9390" }}>{s.label}</div>
+                <div className="font-heading text-2xl sm:text-3xl font-bold text-white">{s.val}</div>
+                <div className="text-[10px] sm:text-xs tracking-wider mt-1" style={{ color: "#9A9390" }}>{s.label}</div>
               </div>
             ))}
           </div>
@@ -188,10 +188,10 @@ function Hero({ onRegister }: { onRegister: () => void }) {
 // --- About ---
 function About() {
   return (
-    <section id="about" className="py-28 relative overflow-hidden">
+    <section id="about" className="py-16 sm:py-28 relative overflow-hidden">
       <div className="absolute inset-0 opacity-5" style={{ background: "radial-gradient(ellipse at 70% 50%, rgba(186,63,83,0.8) 0%, transparent 60%)" }} />
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid md:grid-cols-2 gap-16 items-center">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="grid md:grid-cols-2 gap-8 md:gap-16 items-center">
           <div>
             <p className="section-label">О проекте</p>
             <h2 className="section-title mb-6">Мир на грани<br /><span style={{ color: "#BA3F53" }}>выживания</span></h2>
@@ -213,7 +213,7 @@ function About() {
               <img
                 src="https://cdn.poehali.dev/projects/95220a86-5ef3-4f3a-b595-17cb404449a0/bucket/c54a2533-a861-4d84-a212-2d5a5263f62c.png"
                 alt="Выживший в постапокалиптическом мире"
-                className="w-full max-w-sm md:max-w-md object-contain relative z-10"
+                className="w-full max-w-[260px] sm:max-w-sm md:max-w-md object-contain relative z-10"
                 style={{
                   filter: "drop-shadow(0 0 40px rgba(132,153,79,0.25)) drop-shadow(0 0 80px rgba(186,63,83,0.12))",
                 }}
@@ -245,19 +245,19 @@ const utpItems = [
 
 function UTP() {
   return (
-    <section id="utp" className="py-28" style={{ background: "#1a1a1a" }}>
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="text-center mb-16">
+    <section id="utp" className="py-16 sm:py-28" style={{ background: "#1a1a1a" }}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="text-center mb-10 sm:mb-16">
           <p className="section-label">Почему мы</p>
           <h2 className="section-title">Уникальность <span style={{ color: "#BA3F53" }}>проекта</span></h2>
         </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {utpItems.map((item, i) => (
-            <div key={i} className="card-dark p-8 relative group transition-all duration-300 hover:-translate-y-1" style={{ borderLeft: `3px solid ${item.color}` }}>
+            <div key={i} className="card-dark p-5 sm:p-8 relative group transition-all duration-300 hover:-translate-y-1" style={{ borderLeft: `3px solid ${item.color}` }}>
               <div className="mb-4 w-10 h-10 flex items-center justify-center" style={{ background: `${item.color}15`, border: `1px solid ${item.color}30` }}>
                 <Icon name={item.icon} fallback="Star" size={18} style={{ color: item.color }} />
               </div>
-              <h3 className="font-heading text-lg font-semibold tracking-wider uppercase text-white mb-3">{item.title}</h3>
+              <h3 className="font-heading text-base sm:text-lg font-semibold tracking-wider uppercase text-white mb-3">{item.title}</h3>
               <p className="font-body text-sm leading-relaxed" style={{ color: "#9A9390" }}>{item.desc}</p>
             </div>
           ))}
@@ -276,19 +276,19 @@ const factions = [
 
 function Factions() {
   return (
-    <section className="py-28">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="text-center mb-16">
+    <section className="py-16 sm:py-28">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="text-center mb-10 sm:mb-16">
           <p className="section-label">Выбери сторону</p>
           <h2 className="section-title">Фракции</h2>
         </div>
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
           {factions.map((f, i) => (
             <div key={i} className="relative overflow-hidden group cursor-pointer" style={{ background: "#1e1e1e", border: `1px solid ${f.color}20` }}>
               <div className="absolute top-0 left-0 right-0 h-1" style={{ background: f.color }} />
-              <div className="p-8">
-                <div className="flex items-start justify-between mb-6 flex-wrap gap-2">
-                  <h3 className="font-heading text-2xl font-bold text-white tracking-wider uppercase">{f.name}</h3>
+              <div className="p-5 sm:p-8">
+                <div className="flex items-start justify-between mb-4 sm:mb-6 flex-wrap gap-2">
+                  <h3 className="font-heading text-xl sm:text-2xl font-bold text-white tracking-wider uppercase">{f.name}</h3>
                   <span className="fraction-badge" style={{ color: f.color, borderColor: `${f.color}40`, background: `${f.color}10` }}>{f.tag}</span>
                 </div>
                 <p className="font-body text-sm leading-relaxed" style={{ color: "#9A9390" }}>{f.desc}</p>
@@ -340,13 +340,13 @@ function EventCard({ ev }: { ev: typeof events[0] }) {
       <p className="font-body text-sm leading-relaxed mb-6" style={{ color: "#9A9390" }}>{ev.desc}</p>
       <div className="flex items-center gap-1 flex-wrap">
         <span className="text-[10px] font-heading tracking-widest uppercase mr-3" style={{ color: "#5a5654" }}>До старта:</span>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-1 sm:gap-3">
           <CountdownUnit val={t.d} label="дн" />
-          <span className="font-heading text-xl" style={{ color: "#EAAD25" }}>:</span>
+          <span className="font-heading text-base sm:text-xl" style={{ color: "#EAAD25" }}>:</span>
           <CountdownUnit val={t.h} label="ч" />
-          <span className="font-heading text-xl" style={{ color: "#EAAD25" }}>:</span>
+          <span className="font-heading text-base sm:text-xl" style={{ color: "#EAAD25" }}>:</span>
           <CountdownUnit val={t.m} label="мин" />
-          <span className="font-heading text-xl" style={{ color: "#EAAD25" }}>:</span>
+          <span className="font-heading text-base sm:text-xl" style={{ color: "#EAAD25" }}>:</span>
           <CountdownUnit val={t.s} label="сек" />
         </div>
       </div>
@@ -356,13 +356,13 @@ function EventCard({ ev }: { ev: typeof events[0] }) {
 
 function Events() {
   return (
-    <section id="events" className="py-28" style={{ background: "#1a1a1a" }}>
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="text-center mb-16">
+    <section id="events" className="py-16 sm:py-28" style={{ background: "#1a1a1a" }}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="text-center mb-10 sm:mb-16">
           <p className="section-label">Расписание</p>
           <h2 className="section-title">Предстоящие <span style={{ color: "#BA3F53" }}>события</span></h2>
         </div>
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
           {events.map((ev, i) => <EventCard key={i} ev={ev} />)}
         </div>
         <p className="text-center mt-10 text-sm font-body" style={{ color: "#5a5654" }}>
@@ -387,9 +387,9 @@ const faqs = [
 function FAQ() {
   const [open, setOpen] = useState<number | null>(null);
   return (
-    <section id="faq" className="py-28">
-      <div className="max-w-4xl mx-auto px-6">
-        <div className="text-center mb-16">
+    <section id="faq" className="py-16 sm:py-28">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6">
+        <div className="text-center mb-10 sm:mb-16">
           <p className="section-label">Вопросы и ответы</p>
           <h2 className="section-title">Частые <span style={{ color: "#BA3F53" }}>вопросы</span></h2>
         </div>
@@ -400,7 +400,7 @@ function FAQ() {
                 className="w-full flex items-center justify-between py-5 text-left gap-4"
                 onClick={() => setOpen(open === i ? null : i)}
               >
-                <span className="font-heading text-base md:text-lg font-medium tracking-wider uppercase text-white">{faq.q}</span>
+                <span className="font-heading text-sm md:text-lg font-medium tracking-wide uppercase text-white">{faq.q}</span>
                 <Icon name={open === i ? "Minus" : "Plus"} size={16} style={{ color: "#BA3F53", flexShrink: 0 }} />
               </button>
               {open === i && (
@@ -425,9 +425,9 @@ function Register() {
     setSubmitted(true);
   };
   return (
-    <section id="register" className="py-28 relative overflow-hidden" style={{ background: "#1a1a1a" }}>
+    <section id="register" className="py-16 sm:py-28 relative overflow-hidden" style={{ background: "#1a1a1a" }}>
       <div className="absolute inset-0 opacity-10" style={{ background: "radial-gradient(ellipse at 50% 0%, rgba(132,153,79,0.6) 0%, transparent 60%)" }} />
-      <div className="relative max-w-lg mx-auto px-6">
+      <div className="relative max-w-lg mx-auto px-4 sm:px-6">
         <div className="text-center mb-12">
           <p className="section-label">Вступить в ряды</p>
           <h2 className="section-title">Регистрация</h2>
@@ -461,7 +461,7 @@ function Register() {
               <input className="input-dark" type="password" placeholder="••••••••" value={form.password2} onChange={e => setForm({ ...form, password2: e.target.value })} required />
             </div>
             <div className="pt-2">
-              <button type="submit" className="btn-primary w-full justify-center text-base py-4">
+              <button type="submit" className="btn-primary w-full justify-center text-sm sm:text-base py-3 sm:py-4">
                 <Icon name="UserPlus" size={18} />
                 Создать аккаунт
               </button>
@@ -505,8 +505,8 @@ function Footer() {
   ];
   return (
     <footer id="footer" style={{ background: "#0e0e0e", borderTop: "1px solid rgba(132,153,79,0.1)" }}>
-      <div className="max-w-7xl mx-auto px-6 py-16">
-        <div className="grid md:grid-cols-4 gap-12 mb-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
+        <div className="grid md:grid-cols-4 gap-6 sm:gap-12 mb-8 sm:mb-12">
           <div className="md:col-span-2">
             <div className="mb-4">
               <img
@@ -583,24 +583,24 @@ function RegisterModal({ open, onClose }: { open: boolean; onClose: () => void }
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4" onClick={onClose}>
       <div className="absolute inset-0" style={{ background: "rgba(0,0,0,0.85)" }} />
-      <div className="relative w-full max-w-md animate-fade-up" style={{ background: "#1e1e1e", border: "1px solid rgba(186,63,83,0.25)" }} onClick={e => e.stopPropagation()}>
+      <div className="relative w-full max-w-sm sm:max-w-md animate-fade-up" style={{ background: "#1e1e1e", border: "1px solid rgba(186,63,83,0.25)" }} onClick={e => e.stopPropagation()}>
         <div className="absolute top-0 left-0 right-0 h-0.5" style={{ background: "linear-gradient(to right, #BA3F53, #84994F)" }} />
         <button onClick={onClose} className="absolute top-4 right-4" style={{ color: "#9A9390" }}>
           <Icon name="X" size={18} />
         </button>
-        <div className="p-8">
+        <div className="p-5 sm:p-8">
           {done ? (
             <div className="text-center py-8">
               <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center" style={{ background: "rgba(186,63,83,0.1)", border: "1px solid rgba(186,63,83,0.3)" }}>
                 <Icon name="CheckCircle" size={32} style={{ color: "#BA3F53" }} />
               </div>
-              <h3 className="font-heading text-2xl text-white tracking-wider uppercase mb-2">Добро пожаловать!</h3>
+              <h3 className="font-heading text-xl sm:text-2xl text-white tracking-wider uppercase mb-2">Добро пожаловать!</h3>
               <p className="font-body text-sm" style={{ color: "#9A9390" }}>Привяжи Steam в личном кабинете.</p>
               <button onClick={onClose} className="btn-primary mt-6 justify-center">Закрыть</button>
             </div>
           ) : (
             <>
-              <h2 className="font-heading text-2xl font-bold text-white tracking-wider uppercase mb-6">Регистрация</h2>
+              <h2 className="font-heading text-xl sm:text-2xl font-bold text-white tracking-wider uppercase mb-5 sm:mb-6">Регистрация</h2>
               <form className="space-y-4" onSubmit={e => { e.preventDefault(); setDone(true); }}>
                 <input className="input-dark" type="text" placeholder="Логин" value={form.login} onChange={e => setForm({ ...form, login: e.target.value })} required />
                 <input className="input-dark" type="email" placeholder="Email" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} required />
