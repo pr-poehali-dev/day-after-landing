@@ -70,29 +70,32 @@
 }
 
 @layer components {
+  /* Кнопка — главный акцент: красный */
   .btn-primary {
-    @apply inline-flex items-center gap-2 px-8 py-3 font-heading font-semibold tracking-widest uppercase text-white transition-all duration-300;
-    background-color: var(--da-green);
-    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
-  }
-  .btn-primary:hover {
-    background-color: #9aaf60;
-    transform: translateY(-2px);
-  }
-
-  .btn-danger {
     @apply inline-flex items-center gap-2 px-8 py-3 font-heading font-semibold tracking-widest uppercase text-white transition-all duration-300;
     background-color: var(--da-red);
     clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
   }
-  .btn-danger:hover {
+  .btn-primary:hover {
     background-color: #cc4f63;
     transform: translateY(-2px);
   }
 
+  /* Кнопка второстепенная: зелёный */
+  .btn-secondary {
+    @apply inline-flex items-center gap-2 px-8 py-3 font-heading font-semibold tracking-widest uppercase text-white transition-all duration-300;
+    background-color: var(--da-green);
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  }
+  .btn-secondary:hover {
+    background-color: #9aaf60;
+    transform: translateY(-2px);
+  }
+
+  /* Section label — красный (главный акцент) */
   .section-label {
     @apply text-xs font-heading tracking-[0.3em] uppercase mb-3;
-    color: var(--da-green);
+    color: var(--da-red);
   }
 
   .section-title {
@@ -100,9 +103,10 @@
     color: #ffffff;
   }
 
+  /* Card — граница зелёная (вспомогательная) */
   .card-dark {
     background-color: #1e1e1e;
-    border: 1px solid rgba(132, 153, 79, 0.15);
+    border: 1px solid rgba(132, 153, 79, 0.12);
   }
 
   .noise-overlay::before {
@@ -114,6 +118,15 @@
     z-index: 1;
   }
 
+  /* Декоративная линия — красная */
+  .accent-line {
+    width: 48px;
+    height: 3px;
+    background-color: var(--da-red);
+    margin-bottom: 1.5rem;
+  }
+
+  /* Оставляем зелёную для мест, где нужна вспомогательная */
   .green-line {
     width: 48px;
     height: 3px;
@@ -121,6 +134,7 @@
     margin-bottom: 1.5rem;
   }
 
+  /* Event card — красная граница (главный акцент) */
   .event-card {
     background: linear-gradient(135deg, #1e1e1e 0%, #1a1a1a 100%);
     border: 1px solid rgba(186, 63, 83, 0.2);
@@ -132,20 +146,22 @@
     transform: translateX(4px);
   }
 
+  /* Nav hover — красный */
   .nav-link {
     @apply text-sm font-heading tracking-widest uppercase transition-colors duration-200;
     color: var(--da-grey);
   }
   .nav-link:hover {
-    color: var(--da-green);
+    color: var(--da-red);
   }
 
   .fungus-glow {
     box-shadow:
-      0 0 30px rgba(132, 153, 79, 0.15),
-      0 0 60px rgba(132, 153, 79, 0.05);
+      0 0 30px rgba(186, 63, 83, 0.15),
+      0 0 60px rgba(186, 63, 83, 0.05);
   }
 
+  /* Input focus — красный */
   .input-dark {
     @apply w-full px-4 py-3 text-sm font-body outline-none transition-all duration-200;
     background-color: #1a1a1a;
@@ -153,7 +169,7 @@
     color: #d4d0cd;
   }
   .input-dark:focus {
-    border-color: var(--da-green);
+    border-color: var(--da-red);
   }
   .input-dark::placeholder {
     color: #5a5654;
@@ -163,15 +179,16 @@
     border-bottom: 1px solid rgba(154, 147, 144, 0.15);
   }
 
+  /* Badge — красный */
   .fraction-badge {
     @apply text-xs font-heading tracking-widest uppercase px-3 py-1;
-    background-color: rgba(132, 153, 79, 0.15);
-    border: 1px solid rgba(132, 153, 79, 0.3);
-    color: var(--da-green);
+    background-color: rgba(186, 63, 83, 0.12);
+    border: 1px solid rgba(186, 63, 83, 0.3);
+    color: var(--da-red);
   }
 }
 
-/* Scrollbar */
+/* Scrollbar — красный */
 ::-webkit-scrollbar {
   width: 4px;
 }
@@ -179,7 +196,7 @@
   background: #161616;
 }
 ::-webkit-scrollbar-thumb {
-  background: #84994f;
+  background: #ba3f53;
 }
 
 /* Animation delays */

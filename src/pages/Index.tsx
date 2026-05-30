@@ -59,7 +59,7 @@ function Nav({ onRegister }: { onRegister: () => void }) {
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between h-16">
         <a href="#" className="flex items-center">
           <img
-            src="https://cdn.poehali.dev/projects/95220a86-5ef3-4f3a-b595-17cb404449a0/bucket/defde569-bc99-42f6-81e9-482e3a940414.png"
+            src="https://cdn.poehali.dev/projects/95220a86-5ef3-4f3a-b595-17cb404449a0/bucket/472727f6-20d0-42af-b38c-3db21d83cf5a.png"
             alt="DAY AFTER"
             className="h-10 w-auto object-contain"
           />
@@ -121,10 +121,10 @@ function Hero({ onRegister }: { onRegister: () => void }) {
           <p className="section-label animate-fade-up opacity-0 delay-100">Garry's Mod · Role-Play · The Last Of Us</p>
           <div className="animate-fade-up opacity-0 delay-200 mb-6">
             <img
-              src="https://cdn.poehali.dev/projects/95220a86-5ef3-4f3a-b595-17cb404449a0/bucket/472727f6-20d0-42af-b38c-3db21d83cf5a.png"
+              src="https://cdn.poehali.dev/projects/95220a86-5ef3-4f3a-b595-17cb404449a0/bucket/defde569-bc99-42f6-81e9-482e3a940414.png"
               alt="DAY AFTER"
               className="h-40 md:h-56 w-auto object-contain"
-              style={{ filter: "drop-shadow(0 0 40px rgba(186,63,83,0.35))" }}
+              style={{ filter: "drop-shadow(0 0 40px rgba(186,63,83,0.25))" }}
             />
           </div>
           <div className="green-line animate-fade-up opacity-0 delay-300" />
@@ -140,7 +140,7 @@ function Hero({ onRegister }: { onRegister: () => void }) {
               href="#about"
               className="inline-flex items-center gap-2 px-8 py-3 font-heading text-sm tracking-widest uppercase transition-all duration-300"
               style={{ border: "1px solid rgba(154,147,144,0.3)", color: "#9A9390" }}
-              onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.borderColor = "#84994F"; (e.currentTarget as HTMLAnchorElement).style.color = "#84994F"; }}
+              onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.borderColor = "#BA3F53"; (e.currentTarget as HTMLAnchorElement).style.color = "#BA3F53"; }}
               onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(154,147,144,0.3)"; (e.currentTarget as HTMLAnchorElement).style.color = "#9A9390"; }}
             >
               Узнать больше
@@ -163,8 +163,8 @@ function Hero({ onRegister }: { onRegister: () => void }) {
       </div>
 
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 opacity-50">
-        <div className="w-px h-12 animate-pulse" style={{ background: "linear-gradient(to bottom, #84994F, transparent)" }} />
-        <span className="text-[10px] tracking-widest uppercase font-heading" style={{ color: "#84994F" }}>Scroll</span>
+        <div className="w-px h-12 animate-pulse" style={{ background: "linear-gradient(to bottom, #BA3F53, transparent)" }} />
+        <span className="text-[10px] tracking-widest uppercase font-heading" style={{ color: "#BA3F53" }}>Scroll</span>
       </div>
     </section>
   );
@@ -174,13 +174,13 @@ function Hero({ onRegister }: { onRegister: () => void }) {
 function About() {
   return (
     <section id="about" className="py-28 relative overflow-hidden">
-      <div className="absolute inset-0 opacity-5" style={{ background: "radial-gradient(ellipse at 70% 50%, rgba(132,153,79,0.8) 0%, transparent 60%)" }} />
+      <div className="absolute inset-0 opacity-5" style={{ background: "radial-gradient(ellipse at 70% 50%, rgba(186,63,83,0.8) 0%, transparent 60%)" }} />
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid md:grid-cols-2 gap-16 items-center">
           <div>
             <p className="section-label">О проекте</p>
-            <h2 className="section-title mb-6">Мир на грани<br /><span style={{ color: "#84994F" }}>выживания</span></h2>
-            <div className="green-line" />
+            <h2 className="section-title mb-6">Мир на грани<br /><span style={{ color: "#BA3F53" }}>выживания</span></h2>
+            <div className="accent-line" />
             <p className="font-body text-base leading-relaxed mb-6" style={{ color: "#9A9390" }}>
               DAY AFTER — это динамичный и атмосферный ролевой проект, который переносит тебя в постапокалиптическую вселенную The Last Of Us прямо в Garry's Mod.
             </p>
@@ -188,19 +188,19 @@ function About() {
               Опытная команда разработчиков воссоздала атмосферу игры до мельчайших деталей — уникальные карты, кастомные модели, написанные с нуля, и режим, которого ты не найдёшь больше нигде.
             </p>
             <p className="font-body text-base leading-relaxed" style={{ color: "#9A9390" }}>
-              Здесь ты не просто играешь — ты <span style={{ color: "#EAAD25" }}>проживаешь персонажа</span> в мире, где каждый день может стать последним.
+              Здесь ты не просто играешь — ты <span style={{ color: "#84994F" }}>проживаешь персонажа</span> в мире, где каждый день может стать последним.
             </p>
           </div>
           <div className="relative">
-            <div className="aspect-video relative overflow-hidden" style={{ border: "1px solid rgba(132,153,79,0.2)" }}>
+            <div className="aspect-video relative overflow-hidden" style={{ border: "1px solid rgba(186,63,83,0.2)" }}>
               <img src={HERO_IMAGE} alt="DAY AFTER gameplay" className="w-full h-full object-cover opacity-60" />
-              <div className="absolute inset-0" style={{ background: "linear-gradient(135deg, rgba(132,153,79,0.1) 0%, transparent 50%, rgba(186,63,83,0.1) 100%)" }} />
+              <div className="absolute inset-0" style={{ background: "linear-gradient(135deg, rgba(186,63,83,0.08) 0%, transparent 50%, rgba(132,153,79,0.06) 100%)" }} />
               <div className="absolute bottom-4 left-4">
-                <div className="font-heading text-sm tracking-widest uppercase" style={{ color: "#84994F" }}>◉ Сервер онлайн</div>
+                <div className="font-heading text-sm tracking-widest uppercase" style={{ color: "#BA3F53" }}>◉ Сервер онлайн</div>
               </div>
             </div>
-            <div className="absolute -top-3 -left-3 w-12 h-12" style={{ borderTop: "2px solid #84994F", borderLeft: "2px solid #84994F" }} />
-            <div className="absolute -bottom-3 -right-3 w-12 h-12" style={{ borderBottom: "2px solid #BA3F53", borderRight: "2px solid #BA3F53" }} />
+            <div className="absolute -top-3 -left-3 w-12 h-12" style={{ borderTop: "2px solid #BA3F53", borderLeft: "2px solid #BA3F53" }} />
+            <div className="absolute -bottom-3 -right-3 w-12 h-12" style={{ borderBottom: "2px solid #84994F", borderRight: "2px solid #84994F" }} />
           </div>
         </div>
       </div>
@@ -224,7 +224,7 @@ function UTP() {
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-16">
           <p className="section-label">Почему мы</p>
-          <h2 className="section-title">Уникальность <span style={{ color: "#84994F" }}>проекта</span></h2>
+          <h2 className="section-title">Уникальность <span style={{ color: "#BA3F53" }}>проекта</span></h2>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {utpItems.map((item, i) => (
@@ -342,7 +342,7 @@ function Events() {
         </div>
         <p className="text-center mt-10 text-sm font-body" style={{ color: "#5a5654" }}>
           События проводятся регулярно — следи за анонсами в{" "}
-          <a href="https://discord.gg/" target="_blank" rel="noopener" className="transition-colors hover:text-white" style={{ color: "#84994F" }}>Discord</a>
+          <a href="https://discord.gg/" target="_blank" rel="noopener" className="transition-colors hover:text-white" style={{ color: "#BA3F53" }}>Discord</a>
         </p>
       </div>
     </section>
@@ -366,7 +366,7 @@ function FAQ() {
       <div className="max-w-4xl mx-auto px-6">
         <div className="text-center mb-16">
           <p className="section-label">Вопросы и ответы</p>
-          <h2 className="section-title">Частые <span style={{ color: "#84994F" }}>вопросы</span></h2>
+          <h2 className="section-title">Частые <span style={{ color: "#BA3F53" }}>вопросы</span></h2>
         </div>
         <div className="space-y-0">
           {faqs.map((faq, i) => (
@@ -376,7 +376,7 @@ function FAQ() {
                 onClick={() => setOpen(open === i ? null : i)}
               >
                 <span className="font-heading text-base md:text-lg font-medium tracking-wider uppercase text-white">{faq.q}</span>
-                <Icon name={open === i ? "Minus" : "Plus"} size={16} style={{ color: "#84994F", flexShrink: 0 }} />
+                <Icon name={open === i ? "Minus" : "Plus"} size={16} style={{ color: "#BA3F53", flexShrink: 0 }} />
               </button>
               {open === i && (
                 <div className="pb-5 font-body text-sm leading-relaxed animate-fade-up" style={{ color: "#9A9390" }}>
@@ -411,8 +411,8 @@ function Register() {
 
         {submitted ? (
           <div className="text-center py-16">
-            <div className="w-16 h-16 mx-auto mb-6 flex items-center justify-center" style={{ background: "rgba(132,153,79,0.1)", border: "1px solid rgba(132,153,79,0.3)" }}>
-              <Icon name="CheckCircle" size={32} style={{ color: "#84994F" }} />
+            <div className="w-16 h-16 mx-auto mb-6 flex items-center justify-center" style={{ background: "rgba(186,63,83,0.1)", border: "1px solid rgba(186,63,83,0.3)" }}>
+              <Icon name="CheckCircle" size={32} style={{ color: "#BA3F53" }} />
             </div>
             <h3 className="font-heading text-2xl font-bold text-white tracking-wider uppercase mb-3">Добро пожаловать</h3>
             <p className="font-body text-sm" style={{ color: "#9A9390" }}>Аккаунт создан. Теперь привяжи Steam в личном кабинете.</p>
@@ -443,7 +443,7 @@ function Register() {
             </div>
             <p className="text-center text-xs font-body" style={{ color: "#5a5654" }}>
               Регистрируясь, вы соглашаетесь с{" "}
-              <a href="#footer" className="hover:underline" style={{ color: "#84994F" }}>условиями использования</a>
+              <a href="#footer" className="hover:underline" style={{ color: "#BA3F53" }}>условиями использования</a>
             </p>
             <div className="relative py-4">
               <div className="absolute inset-0 flex items-center">
@@ -498,7 +498,7 @@ function Footer() {
                 <a key={s.label} href={s.href} target="_blank" rel="noopener" title={s.label}
                   className="w-9 h-9 flex items-center justify-center transition-all duration-200"
                   style={{ border: "1px solid rgba(154,147,144,0.15)", color: "#9A9390" }}
-                  onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.borderColor = "#84994F"; (e.currentTarget as HTMLAnchorElement).style.color = "#84994F"; }}
+                  onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.borderColor = "#BA3F53"; (e.currentTarget as HTMLAnchorElement).style.color = "#BA3F53"; }}
                   onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(154,147,144,0.15)"; (e.currentTarget as HTMLAnchorElement).style.color = "#9A9390"; }}>
                   <Icon name={s.icon} fallback="Link" size={15} />
                 </a>
@@ -558,16 +558,16 @@ function RegisterModal({ open, onClose }: { open: boolean; onClose: () => void }
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4" onClick={onClose}>
       <div className="absolute inset-0" style={{ background: "rgba(0,0,0,0.85)" }} />
-      <div className="relative w-full max-w-md animate-fade-up" style={{ background: "#1e1e1e", border: "1px solid rgba(132,153,79,0.2)" }} onClick={e => e.stopPropagation()}>
-        <div className="absolute top-0 left-0 right-0 h-0.5" style={{ background: "linear-gradient(to right, #84994F, #BA3F53)" }} />
+      <div className="relative w-full max-w-md animate-fade-up" style={{ background: "#1e1e1e", border: "1px solid rgba(186,63,83,0.25)" }} onClick={e => e.stopPropagation()}>
+        <div className="absolute top-0 left-0 right-0 h-0.5" style={{ background: "linear-gradient(to right, #BA3F53, #84994F)" }} />
         <button onClick={onClose} className="absolute top-4 right-4" style={{ color: "#9A9390" }}>
           <Icon name="X" size={18} />
         </button>
         <div className="p-8">
           {done ? (
             <div className="text-center py-8">
-              <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center" style={{ background: "rgba(132,153,79,0.1)", border: "1px solid rgba(132,153,79,0.3)" }}>
-                <Icon name="CheckCircle" size={32} style={{ color: "#84994F" }} />
+              <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center" style={{ background: "rgba(186,63,83,0.1)", border: "1px solid rgba(186,63,83,0.3)" }}>
+                <Icon name="CheckCircle" size={32} style={{ color: "#BA3F53" }} />
               </div>
               <h3 className="font-heading text-2xl text-white tracking-wider uppercase mb-2">Добро пожаловать!</h3>
               <p className="font-body text-sm" style={{ color: "#9A9390" }}>Привяжи Steam в личном кабинете.</p>
