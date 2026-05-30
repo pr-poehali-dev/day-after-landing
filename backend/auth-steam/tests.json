@@ -1,0 +1,10 @@
+{
+  "tests": [
+    {
+      "name": "Steam auth redirect",
+      "method": "GET",
+      "path": "/",
+      "expectedStatus": 302
+    }
+  ]
+}

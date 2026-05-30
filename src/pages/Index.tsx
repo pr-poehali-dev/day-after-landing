@@ -1,5 +1,35 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Icon from "@/components/ui/icon";
+
+const STEAM_AUTH_URL = "https://functions.poehali.dev/5ceb36cc-a978-4d89-9ab5-da27b58c852f";
+
+// --- Хук авторизации через Steam ---
+function useSteamAuth() {
+  const [user, setUser] = useState<{ username: string; avatar: string } | null>(null);
+
+  useEffect(() => {
+    // Проверяем ?auth=success после редиректа от Steam
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("auth") === "success") {
+      const username = params.get("username") || "Выживший";
+      const avatar = params.get("avatar") || "";
+      setUser({ username, avatar });
+      // Чистим URL
+      window.history.replaceState({}, "", window.location.pathname);
+    }
+  }, []);
+
+  const loginWithSteam = useCallback(() => {
+    window.location.href = STEAM_AUTH_URL;
+  }, []);
+
+  const logout = useCallback(() => {
+    setUser(null);
+    document.cookie = "da_session=; Max-Age=0; path=/";
+  }, []);
+
+  return { user, loginWithSteam, logout };
+}
 
 const HERO_IMAGE = "https://cdn.poehali.dev/projects/95220a86-5ef3-4f3a-b595-17cb404449a0/files/458d8597-9528-40d1-9ea8-b6a9b016d3df.jpg";
 
@@ -36,7 +66,7 @@ function CountdownUnit({ val, label }: { val: number; label: string }) {
 }
 
 // --- Nav ---
-function Nav({ onRegister }: { onRegister: () => void }) {
+function Nav({ onRegister, user, onLogout }: { onRegister: () => void; user: { username: string; avatar: string } | null; onLogout: () => void }) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   useEffect(() => {
@@ -85,7 +115,15 @@ function Nav({ onRegister }: { onRegister: () => void }) {
               <Icon name="Send" size={16} />
             </a> */}
           </div>
-          <button onClick={onRegister} className="btn-primary text-sm">Играть</button>
+          {user ? (
+            <div className="flex items-center gap-3">
+              {user.avatar && <img src={user.avatar} alt={user.username} className="w-7 h-7 rounded-full" style={{ border: "1px solid rgba(186,63,83,0.4)" }} />}
+              <span className="font-heading text-xs tracking-wider uppercase text-white">{user.username}</span>
+              <button onClick={onLogout} className="font-heading text-xs tracking-widest uppercase transition-colors hover:text-white" style={{ color: "#5a5654" }}>Выйти</button>
+            </div>
+          ) : (
+            <button onClick={onRegister} className="btn-primary text-sm">Играть</button>
+          )}
         </div>
 
         <button className="md:hidden text-white" onClick={() => setMenuOpen(!menuOpen)}>
@@ -478,15 +516,11 @@ function Register() {
                 <span className="px-4 text-xs font-heading tracking-widest uppercase" style={{ background: "#1a1a1a", color: "#5a5654" }}>или войти через</span>
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-3">
-              <button type="button" className="flex items-center justify-center gap-2 py-3 font-heading text-xs tracking-widest uppercase transition-all duration-200 hover:opacity-80" style={{ border: "1px solid rgba(154,147,144,0.2)", color: "#9A9390" }}>
+            <div className="grid grid-cols-1 gap-3">
+              <a href={STEAM_AUTH_URL} className="flex items-center justify-center gap-2 py-3 font-heading text-xs tracking-widest uppercase transition-all duration-200 hover:opacity-90" style={{ background: "rgba(23,40,76,0.6)", border: "1px solid rgba(102,140,204,0.35)", color: "#a8c0e8" }}>
                 <Icon name="Gamepad2" size={16} />
-                Steam
-              </button>
-              <button type="button" className="flex items-center justify-center gap-2 py-3 font-heading text-xs tracking-widest uppercase transition-all duration-200 hover:opacity-80" style={{ border: "1px solid rgba(154,147,144,0.2)", color: "#9A9390" }}>
-                <Icon name="MessageSquare" size={16} />
-                Discord
-              </button>
+                Войти через Steam
+              </a>
             </div>
           </form>
         )}
@@ -610,14 +644,9 @@ function RegisterModal({ open, onClose }: { open: boolean; onClose: () => void }
                   <Icon name="UserPlus" size={16} />
                   Создать аккаунт
                 </button>
-                <div className="grid grid-cols-2 gap-3 mt-2">
-                  <button type="button" className="flex items-center justify-center gap-2 py-3 font-heading text-xs tracking-widest uppercase transition-all duration-200 hover:opacity-80" style={{ border: "1px solid rgba(154,147,144,0.2)", color: "#9A9390" }}>
-                    <Icon name="Gamepad2" size={14} /> Steam
-                  </button>
-                  <button type="button" className="flex items-center justify-center gap-2 py-3 font-heading text-xs tracking-widest uppercase transition-all duration-200 hover:opacity-80" style={{ border: "1px solid rgba(154,147,144,0.2)", color: "#9A9390" }}>
-                    <Icon name="MessageSquare" size={14} /> Discord
-                  </button>
-                </div>
+                <a href={STEAM_AUTH_URL} className="mt-2 flex items-center justify-center gap-2 py-3 font-heading text-xs tracking-widest uppercase transition-all duration-200 hover:opacity-90" style={{ background: "rgba(23,40,76,0.6)", border: "1px solid rgba(102,140,204,0.35)", color: "#a8c0e8" }}>
+                  <Icon name="Gamepad2" size={14} /> Войти через Steam
+                </a>
               </form>
             </>
           )}
@@ -712,10 +741,16 @@ export default function Index() {
   const [introDone, setIntroDone] = useState(() => {
     return sessionStorage.getItem("da_intro_shown") === "1";
   });
+  const { user, loginWithSteam, logout } = useSteamAuth();
 
   const handleIntroDone = () => {
     sessionStorage.setItem("da_intro_shown", "1");
     setIntroDone(true);
+  };
+
+  const handleRegister = () => {
+    if (user) return;
+    setModalOpen(true);
   };
 
   return (
@@ -724,8 +759,8 @@ export default function Index() {
         <IntroScreen onDone={handleIntroDone} />
       ) : (
         <>
-          <Nav onRegister={() => setModalOpen(true)} />
-          <Hero onRegister={() => setModalOpen(true)} />
+          <Nav onRegister={handleRegister} user={user} onLogout={logout} />
+          <Hero onRegister={user ? loginWithSteam : handleRegister} />
           <About />
           <UTP />
           <Factions />

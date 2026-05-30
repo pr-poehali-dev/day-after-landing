@@ -1,0 +1,10 @@
+{
+  "tests": [
+    {
+      "name": "Callback without params returns redirect to error",
+      "method": "GET",
+      "path": "/",
+      "expectedStatus": 302
+    }
+  ]
+}
