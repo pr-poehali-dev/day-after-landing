@@ -127,22 +127,22 @@ function Hero({ onRegister }: { onRegister: () => void }) {
         <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse at 40% 85%, rgba(132,153,79,0.15) 0%, transparent 45%)" }} />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 pt-24 pb-20">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 pt-20 sm:pt-24 pb-12 sm:pb-20">
         <div className="max-w-3xl">
-          <p className="section-label animate-fade-up opacity-0 delay-100">Garry's Mod · Role-Play · The Last Of Us</p>
-          <div className="animate-fade-up opacity-0 delay-200 mb-6">
+          <p className="section-label animate-fade-up opacity-0 delay-100 text-[10px] sm:text-xs">Garry's Mod · Role-Play · The Last Of Us</p>
+          <div className="animate-fade-up opacity-0 delay-200 mb-3 sm:mb-6">
             <img
               src="https://cdn.poehali.dev/projects/95220a86-5ef3-4f3a-b595-17cb404449a0/bucket/defde569-bc99-42f6-81e9-482e3a940414.png"
               alt="DAY AFTER"
-              className="h-40 md:h-56 w-auto object-contain"
-              style={{ filter: "drop-shadow(0 0 40px rgba(186,63,83,0.25))" }}
+              className="w-auto object-contain"
+              style={{ height: "clamp(80px, 22vw, 224px)", filter: "drop-shadow(0 0 40px rgba(186,63,83,0.25))" }}
             />
           </div>
           <div className="green-line animate-fade-up opacity-0 delay-300" />
-          <p className="font-heading text-base tracking-[0.25em] uppercase mb-5 animate-fade-up opacity-0 delay-350" style={{ color: "#BA3F53" }}>
+          <p className="font-heading text-xs sm:text-base tracking-[0.2em] sm:tracking-[0.25em] uppercase mb-3 sm:mb-5 animate-fade-up opacity-0 delay-350" style={{ color: "#BA3F53" }}>
             Выжить. Решить. Надеяться.
           </p>
-          <p className="text-lg md:text-xl font-body font-light leading-relaxed mb-10 animate-fade-up opacity-0 delay-400" style={{ color: "#9A9390", maxWidth: "480px" }}>
+          <p className="text-sm sm:text-lg md:text-xl font-body font-light leading-relaxed mb-6 sm:mb-10 animate-fade-up opacity-0 delay-400" style={{ color: "#9A9390", maxWidth: "480px" }}>
             Единственный RP-проект по вселенной<br className="hidden sm:block" /> The Last Of Us в русскоязычном сегменте.<br />
             Мир захвачен кордицепсом. Каждый день — испытание.
           </p>
