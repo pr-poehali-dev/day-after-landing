@@ -632,10 +632,13 @@ function IntroScreen({ onDone }: { onDone: () => void }) {
   const [phase, setPhase] = useState<"in" | "hold" | "out">("in");
 
   useEffect(() => {
-    // fade-in: 0→800ms, hold: 800→2200ms, fade-out: 2200→3000ms
-    const t1 = setTimeout(() => setPhase("hold"), 800);
-    const t2 = setTimeout(() => setPhase("out"), 2200);
-    const t3 = setTimeout(() => onDone(), 3100);
+    // fade-in:  0 → 900ms
+    // hold:   900 → 2800ms
+    // fade-out: 2800 → 4000ms  (1.2s плавное исчезновение)
+    // onDone:   4100ms — сайт показывается уже после полного исчезновения
+    const t1 = setTimeout(() => setPhase("hold"), 900);
+    const t2 = setTimeout(() => setPhase("out"), 2800);
+    const t3 = setTimeout(() => onDone(), 4100);
     return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };
   }, [onDone]);
 
@@ -645,7 +648,7 @@ function IntroScreen({ onDone }: { onDone: () => void }) {
       style={{
         background: "#0e0e0e",
         opacity: phase === "out" ? 0 : 1,
-        transition: phase === "in" ? "opacity 0.8s ease-out" : phase === "out" ? "opacity 0.9s ease-in" : "none",
+        transition: phase === "in" ? "opacity 0.9s ease-out" : phase === "out" ? "opacity 1.2s ease-in" : "none",
         pointerEvents: phase === "out" ? "none" : "all",
       }}
     >
