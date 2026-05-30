@@ -625,11 +625,87 @@ function RegisterModal({ open, onClose }: { open: boolean; onClose: () => void }
   );
 }
 
+// --- Intro Screen ---
+function IntroScreen({ onDone }: { onDone: () => void }) {
+  const [phase, setPhase] = useState<"in" | "hold" | "out">("in");
+
+  useEffect(() => {
+    // fade-in: 0→800ms, hold: 800→2200ms, fade-out: 2200→3000ms
+    const t1 = setTimeout(() => setPhase("hold"), 800);
+    const t2 = setTimeout(() => setPhase("out"), 2200);
+    const t3 = setTimeout(() => onDone(), 3100);
+    return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };
+  }, [onDone]);
+
+  return (
+    <div
+      className="fixed inset-0 z-[200] flex flex-col items-center justify-center"
+      style={{
+        background: "#0e0e0e",
+        opacity: phase === "out" ? 0 : 1,
+        transition: phase === "in" ? "opacity 0.8s ease-out" : phase === "out" ? "opacity 0.9s ease-in" : "none",
+        pointerEvents: phase === "out" ? "none" : "all",
+      }}
+    >
+      {/* Фоновый арт */}
+      <div className="absolute inset-0 overflow-hidden">
+        <img
+          src="https://cdn.poehali.dev/projects/95220a86-5ef3-4f3a-b595-17cb404449a0/bucket/af85c668-b3f0-45c2-adf7-1b6cd0396775.png"
+          alt=""
+          className="w-full h-full object-cover"
+          style={{ opacity: 0.12, objectPosition: "center 30%" }}
+        />
+        <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse at 50% 50%, rgba(186,63,83,0.08) 0%, transparent 70%)" }} />
+      </div>
+
+      {/* Контент */}
+      <div
+        className="relative z-10 flex flex-col items-center gap-6"
+        style={{
+          opacity: phase === "in" ? 0 : 1,
+          transform: phase === "in" ? "translateY(16px)" : "translateY(0)",
+          transition: "opacity 0.7s ease-out 0.3s, transform 0.7s ease-out 0.3s",
+        }}
+      >
+        {/* Логотип */}
+        <img
+          src="https://cdn.poehali.dev/projects/95220a86-5ef3-4f3a-b595-17cb404449a0/bucket/defde569-bc99-42f6-81e9-482e3a940414.png"
+          alt="DAY AFTER"
+          className="h-32 md:h-44 w-auto object-contain"
+          style={{ filter: "drop-shadow(0 0 60px rgba(186,63,83,0.3))" }}
+        />
+
+        {/* Слоган */}
+        <p
+          className="font-heading text-sm tracking-[0.4em] uppercase"
+          style={{ color: "#BA3F53", opacity: phase === "hold" || phase === "out" ? 1 : 0, transition: "opacity 0.5s ease-out 0.6s" }}
+        >
+          Выжить. Решить. Надеяться.
+        </p>
+
+        {/* Прогресс-линия */}
+        <div className="w-32 h-px overflow-hidden" style={{ background: "rgba(154,147,144,0.15)" }}>
+          <div
+            className="h-full"
+            style={{
+              background: "linear-gradient(to right, #BA3F53, #84994F)",
+              width: phase === "hold" || phase === "out" ? "100%" : "0%",
+              transition: "width 1.3s ease-out",
+            }}
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // --- Main ---
 export default function Index() {
   const [modalOpen, setModalOpen] = useState(false);
+  const [introDone, setIntroDone] = useState(false);
   return (
     <div className="min-h-screen" style={{ background: "#161616" }}>
+      {!introDone && <IntroScreen onDone={() => setIntroDone(true)} />}
       <Nav onRegister={() => setModalOpen(true)} />
       <Hero onRegister={() => setModalOpen(true)} />
       <About />
