@@ -57,11 +57,12 @@ function Nav({ onRegister }: { onRegister: () => void }) {
       style={{ background: scrolled ? "rgba(14,14,14,0.97)" : "transparent", borderBottom: scrolled ? "1px solid rgba(132,153,79,0.15)" : "none" }}
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between h-16">
-        <a href="#" className="flex items-center gap-3">
-          <div className="flex flex-col leading-none">
-            <span className="font-heading text-xl font-bold tracking-[0.2em] text-white">DAY</span>
-            <span className="font-heading text-xl font-bold tracking-[0.2em]" style={{ color: "#84994F" }}>AFTER</span>
-          </div>
+        <a href="#" className="flex items-center">
+          <img
+            src="https://cdn.poehali.dev/projects/95220a86-5ef3-4f3a-b595-17cb404449a0/bucket/defde569-bc99-42f6-81e9-482e3a940414.png"
+            alt="DAY AFTER"
+            className="h-10 w-auto object-contain"
+          />
         </a>
 
         <nav className="hidden md:flex items-center gap-8">
@@ -118,10 +119,14 @@ function Hero({ onRegister }: { onRegister: () => void }) {
       <div className="relative z-10 max-w-7xl mx-auto px-6 pt-24 pb-20">
         <div className="max-w-3xl">
           <p className="section-label animate-fade-up opacity-0 delay-100">Garry's Mod · Role-Play · The Last Of Us</p>
-          <h1 className="font-heading text-6xl md:text-8xl font-bold leading-none mb-2 animate-fade-up opacity-0 delay-200">
-            <span className="block text-white">DAY</span>
-            <span className="block" style={{ color: "#84994F", WebkitTextStroke: "1px rgba(132,153,79,0.3)" }}>AFTER</span>
-          </h1>
+          <div className="animate-fade-up opacity-0 delay-200 mb-6">
+            <img
+              src="https://cdn.poehali.dev/projects/95220a86-5ef3-4f3a-b595-17cb404449a0/bucket/472727f6-20d0-42af-b38c-3db21d83cf5a.png"
+              alt="DAY AFTER"
+              className="h-40 md:h-56 w-auto object-contain"
+              style={{ filter: "drop-shadow(0 0 40px rgba(186,63,83,0.35))" }}
+            />
+          </div>
           <div className="green-line animate-fade-up opacity-0 delay-300" />
           <p className="text-lg md:text-xl font-body font-light leading-relaxed mb-10 animate-fade-up opacity-0 delay-400" style={{ color: "#9A9390", maxWidth: "520px" }}>
             Единственный RP-проект по вселенной The Last Of Us в русскоязычном сегменте. Мир захвачен кордицепсом. Каждый день — испытание.
@@ -478,11 +483,12 @@ function Footer() {
       <div className="max-w-7xl mx-auto px-6 py-16">
         <div className="grid md:grid-cols-4 gap-12 mb-12">
           <div className="md:col-span-2">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="flex flex-col leading-none">
-                <span className="font-heading text-2xl font-bold tracking-[0.2em] text-white">DAY</span>
-                <span className="font-heading text-2xl font-bold tracking-[0.2em]" style={{ color: "#84994F" }}>AFTER</span>
-              </div>
+            <div className="mb-4">
+              <img
+                src="https://cdn.poehali.dev/projects/95220a86-5ef3-4f3a-b595-17cb404449a0/bucket/defde569-bc99-42f6-81e9-482e3a940414.png"
+                alt="DAY AFTER"
+                className="h-14 w-auto object-contain"
+              />
             </div>
             <p className="font-body text-sm leading-relaxed mb-6" style={{ color: "#5a5654", maxWidth: "300px" }}>
               Единственный ролевой проект по The Last Of Us в русскоязычном Garry's Mod. Мир захвачен. Выживи.
