@@ -54,10 +54,6 @@
   body {
     @apply bg-da-dark text-da-light font-body;
     background-color: #161616;
-    background-image: url("https://cdn.poehali.dev/projects/95220a86-5ef3-4f3a-b595-17cb404449a0/bucket/db6a987b-94b4-4f13-aa41-dd84c1efa750.jpg");
-    background-size: cover;
-    background-attachment: fixed;
-    background-blend-mode: multiply;
     color: #d4d0cd;
     font-family: "Montserrat", sans-serif;
   }
@@ -107,11 +103,10 @@
     color: #ffffff;
   }
 
-  /* Card — полупрозрачный, чтобы текстура тела чуть просвечивала */
+  /* Card — граница зелёная (вспомогательная) */
   .card-dark {
-    background-color: rgba(26, 26, 26, 0.88);
+    background-color: #1e1e1e;
     border: 1px solid rgba(132, 153, 79, 0.12);
-    backdrop-filter: blur(2px);
   }
 
   .noise-overlay::before {
