@@ -702,10 +702,18 @@ function IntroScreen({ onDone }: { onDone: () => void }) {
 // --- Main ---
 export default function Index() {
   const [modalOpen, setModalOpen] = useState(false);
-  const [introDone, setIntroDone] = useState(false);
+  const [introDone, setIntroDone] = useState(() => {
+    return sessionStorage.getItem("da_intro_shown") === "1";
+  });
+
+  const handleIntroDone = () => {
+    sessionStorage.setItem("da_intro_shown", "1");
+    setIntroDone(true);
+  };
+
   return (
     <div className="min-h-screen" style={{ background: "#161616" }}>
-      {!introDone && <IntroScreen onDone={() => setIntroDone(true)} />}
+      {!introDone && <IntroScreen onDone={handleIntroDone} />}
       <Nav onRegister={() => setModalOpen(true)} />
       <Hero onRegister={() => setModalOpen(true)} />
       <About />
