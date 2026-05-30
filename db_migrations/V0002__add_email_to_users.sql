@@ -1,0 +1,2 @@
+ALTER TABLE t_p2036102_day_after_landing.users
+ADD COLUMN IF NOT EXISTS email VARCHAR(256);

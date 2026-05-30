@@ -2,19 +2,20 @@ import { useState, useEffect, useCallback } from "react";
 import Icon from "@/components/ui/icon";
 
 const STEAM_AUTH_URL = "https://functions.poehali.dev/5ceb36cc-a978-4d89-9ab5-da27b58c852f";
+const SAVE_EMAIL_URL = "https://functions.poehali.dev/935c5761-7148-46d8-9bf8-0cf83ec8b9fd";
 
 // --- Хук авторизации через Steam ---
 function useSteamAuth() {
   const [user, setUser] = useState<{ username: string; avatar: string } | null>(null);
+  const [needEmail, setNeedEmail] = useState(false);
 
   useEffect(() => {
-    // Проверяем ?auth=success после редиректа от Steam
     const params = new URLSearchParams(window.location.search);
     if (params.get("auth") === "success") {
       const username = params.get("username") || "Выживший";
       const avatar = params.get("avatar") || "";
       setUser({ username, avatar });
-      // Чистим URL
+      setNeedEmail(true);
       window.history.replaceState({}, "", window.location.pathname);
     }
   }, []);
@@ -25,10 +26,91 @@ function useSteamAuth() {
 
   const logout = useCallback(() => {
     setUser(null);
+    setNeedEmail(false);
     document.cookie = "da_session=; Max-Age=0; path=/";
   }, []);
 
-  return { user, loginWithSteam, logout };
+  const dismissEmail = useCallback(() => setNeedEmail(false), []);
+
+  return { user, needEmail, loginWithSteam, logout, dismissEmail };
+}
+
+// --- Email Modal (после Steam авторизации) ---
+function EmailModal({ username, onClose }: { username: string; onClose: () => void }) {
+  const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [done, setDone] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+
+    // Получаем session_id из cookie
+    const sessionId = document.cookie.split(";").find(c => c.trim().startsWith("da_session="))?.split("=")[1] || "";
+
+    const res = await fetch(SAVE_EMAIL_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "X-Session-Id": sessionId },
+      body: JSON.stringify({ email }),
+    });
+
+    setLoading(false);
+    if (res.ok) {
+      setDone(true);
+      setTimeout(onClose, 1800);
+    } else {
+      const data = await res.json().catch(() => ({}));
+      setError(data.error || "Ошибка сохранения");
+    }
+  };
+
+  return (
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4" style={{ background: "rgba(0,0,0,0.88)" }}>
+      <div className="relative w-full max-w-sm animate-fade-up" style={{ background: "#1e1e1e", border: "1px solid rgba(186,63,83,0.3)" }}>
+        <div className="absolute top-0 left-0 right-0 h-0.5" style={{ background: "linear-gradient(to right, #BA3F53, #84994F)" }} />
+        <div className="p-6 sm:p-8">
+          {done ? (
+            <div className="text-center py-4">
+              <div className="w-14 h-14 mx-auto mb-4 flex items-center justify-center" style={{ background: "rgba(186,63,83,0.1)", border: "1px solid rgba(186,63,83,0.3)" }}>
+                <Icon name="CheckCircle" size={28} style={{ color: "#BA3F53" }} />
+              </div>
+              <h3 className="font-heading text-xl text-white tracking-wider uppercase mb-2">Добро пожаловать!</h3>
+              <p className="font-body text-sm" style={{ color: "#9A9390" }}>Ты в рядах выживших, {username}.</p>
+            </div>
+          ) : (
+            <>
+              <h2 className="font-heading text-lg font-bold text-white tracking-wider uppercase mb-1">
+                Привет, {username}!
+              </h2>
+              <p className="font-body text-xs mb-6" style={{ color: "#5a5654" }}>
+                Укажи email — будем присылать анонсы событий и важные новости сервера.
+              </p>
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <input
+                  className="input-dark"
+                  type="email"
+                  placeholder="survivor@example.com"
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                  required
+                  autoFocus
+                />
+                {error && <p className="text-xs font-body" style={{ color: "#BA3F53" }}>{error}</p>}
+                <button type="submit" disabled={loading} className="btn-primary w-full justify-center py-3 text-sm">
+                  {loading ? "Сохраняем..." : "Сохранить и войти"}
+                </button>
+              </form>
+              <button onClick={onClose} className="w-full mt-3 text-xs font-heading tracking-widest uppercase py-2 transition-colors hover:text-white" style={{ color: "#3a3836" }}>
+                Пропустить
+              </button>
+            </>
+          )}
+        </div>
+      </div>
+    </div>
+  );
 }
 
 const HERO_IMAGE = "https://cdn.poehali.dev/projects/95220a86-5ef3-4f3a-b595-17cb404449a0/files/458d8597-9528-40d1-9ea8-b6a9b016d3df.jpg";
@@ -456,74 +538,46 @@ function FAQ() {
 
 // --- Register Section ---
 function Register() {
-  const [form, setForm] = useState({ login: "", email: "", password: "", password2: "" });
-  const [submitted, setSubmitted] = useState(false);
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmitted(true);
-  };
   return (
     <section id="register" className="py-16 sm:py-28 relative overflow-hidden" style={{ background: "#1a1a1a" }}>
-      <div className="absolute inset-0 opacity-10" style={{ background: "radial-gradient(ellipse at 50% 0%, rgba(132,153,79,0.6) 0%, transparent 60%)" }} />
-      <div className="relative max-w-lg mx-auto px-4 sm:px-6">
-        <div className="text-center mb-12">
+      <div className="absolute inset-0 opacity-10" style={{ background: "radial-gradient(ellipse at 50% 0%, rgba(186,63,83,0.6) 0%, transparent 60%)" }} />
+      <div className="relative max-w-md mx-auto px-4 sm:px-6">
+        <div className="text-center mb-10">
           <p className="section-label text-center">Вступить в ряды</p>
           <h2 className="section-title text-center">Регистрация</h2>
-          <p className="font-body text-sm mt-4" style={{ color: "#9A9390" }}>Создай аккаунт и получи доступ к серверу</p>
+          <p className="font-body text-sm mt-4" style={{ color: "#9A9390" }}>
+            Для регистрации используется аккаунт Steam — это гарантирует честность и уникальность каждого игрока.
+          </p>
         </div>
 
-        {submitted ? (
-          <div className="text-center py-16">
-            <div className="w-16 h-16 mx-auto mb-6 flex items-center justify-center" style={{ background: "rgba(186,63,83,0.1)", border: "1px solid rgba(186,63,83,0.3)" }}>
-              <Icon name="CheckCircle" size={32} style={{ color: "#BA3F53" }} />
+        {/* Шаги */}
+        <div className="space-y-3 mb-8">
+          {[
+            { n: "01", text: "Нажми кнопку и войди через Steam" },
+            { n: "02", text: "Укажи email для уведомлений" },
+            { n: "03", text: "Получи доступ к серверу" },
+          ].map(s => (
+            <div key={s.n} className="flex items-center gap-4 px-4 py-3" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(154,147,144,0.08)" }}>
+              <span className="font-heading text-xs font-bold flex-shrink-0" style={{ color: "#BA3F53" }}>{s.n}</span>
+              <span className="font-body text-sm" style={{ color: "#9A9390" }}>{s.text}</span>
             </div>
-            <h3 className="font-heading text-2xl font-bold text-white tracking-wider uppercase mb-3">Добро пожаловать</h3>
-            <p className="font-body text-sm" style={{ color: "#9A9390" }}>Аккаунт создан. Теперь привяжи Steam в личном кабинете.</p>
-          </div>
-        ) : (
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label className="block text-xs font-heading tracking-widest uppercase mb-2" style={{ color: "#9A9390" }}>Логин</label>
-              <input className="input-dark" type="text" placeholder="Твой никнейм" value={form.login} onChange={e => setForm({ ...form, login: e.target.value })} required />
-            </div>
-            <div>
-              <label className="block text-xs font-heading tracking-widest uppercase mb-2" style={{ color: "#9A9390" }}>Email</label>
-              <input className="input-dark" type="email" placeholder="survivor@example.com" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} required />
-            </div>
-            <div>
-              <label className="block text-xs font-heading tracking-widest uppercase mb-2" style={{ color: "#9A9390" }}>Пароль</label>
-              <input className="input-dark" type="password" placeholder="••••••••" value={form.password} onChange={e => setForm({ ...form, password: e.target.value })} required />
-            </div>
-            <div>
-              <label className="block text-xs font-heading tracking-widest uppercase mb-2" style={{ color: "#9A9390" }}>Повторите пароль</label>
-              <input className="input-dark" type="password" placeholder="••••••••" value={form.password2} onChange={e => setForm({ ...form, password2: e.target.value })} required />
-            </div>
-            <div className="pt-2">
-              <button type="submit" className="btn-primary w-full justify-center text-sm sm:text-base py-3 sm:py-4">
-                <Icon name="UserPlus" size={18} />
-                Создать аккаунт
-              </button>
-            </div>
-            <p className="text-center text-xs font-body" style={{ color: "#5a5654" }}>
-              Регистрируясь, вы соглашаетесь с{" "}
-              <a href="#footer" className="hover:underline" style={{ color: "#BA3F53" }}>условиями использования</a>
-            </p>
-            <div className="relative py-4">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full" style={{ borderTop: "1px solid rgba(154,147,144,0.15)" }} />
-              </div>
-              <div className="relative flex justify-center">
-                <span className="px-4 text-xs font-heading tracking-widest uppercase" style={{ background: "#1a1a1a", color: "#5a5654" }}>или войти через</span>
-              </div>
-            </div>
-            <div className="grid grid-cols-1 gap-3">
-              <a href={STEAM_AUTH_URL} className="flex items-center justify-center gap-2 py-3 font-heading text-xs tracking-widest uppercase transition-all duration-200 hover:opacity-90" style={{ background: "rgba(23,40,76,0.6)", border: "1px solid rgba(102,140,204,0.35)", color: "#a8c0e8" }}>
-                <Icon name="Gamepad2" size={16} />
-                Войти через Steam
-              </a>
-            </div>
-          </form>
-        )}
+          ))}
+        </div>
+
+        {/* Кнопка Steam */}
+        <a
+          href={STEAM_AUTH_URL}
+          className="flex items-center justify-center gap-3 w-full py-4 font-heading text-sm tracking-widest uppercase transition-all duration-300 hover:-translate-y-0.5"
+          style={{ background: "rgba(23,40,76,0.7)", border: "1px solid rgba(102,140,204,0.4)", color: "#a8c0e8", boxShadow: "0 0 20px rgba(102,140,204,0.08)" }}
+        >
+          <Icon name="Gamepad2" size={18} />
+          Войти через Steam
+        </a>
+
+        <p className="text-center text-xs font-body mt-4" style={{ color: "#3a3836" }}>
+          Нажимая кнопку, вы соглашаетесь с{" "}
+          <a href="#footer" className="hover:underline" style={{ color: "#5a5654" }}>условиями использования</a>
+        </p>
       </div>
     </section>
   );
@@ -610,46 +664,47 @@ function Footer() {
 
 // --- Register Modal ---
 function RegisterModal({ open, onClose }: { open: boolean; onClose: () => void }) {
-  const [form, setForm] = useState({ login: "", email: "", password: "", password2: "" });
-  const [done, setDone] = useState(false);
-
   if (!open) return null;
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4" onClick={onClose}>
       <div className="absolute inset-0" style={{ background: "rgba(0,0,0,0.85)" }} />
-      <div className="relative w-full max-w-sm sm:max-w-md animate-fade-up" style={{ background: "#1e1e1e", border: "1px solid rgba(186,63,83,0.25)" }} onClick={e => e.stopPropagation()}>
+      <div className="relative w-full max-w-sm animate-fade-up" style={{ background: "#1e1e1e", border: "1px solid rgba(186,63,83,0.25)" }} onClick={e => e.stopPropagation()}>
         <div className="absolute top-0 left-0 right-0 h-0.5" style={{ background: "linear-gradient(to right, #BA3F53, #84994F)" }} />
         <button onClick={onClose} className="absolute top-4 right-4" style={{ color: "#9A9390" }}>
           <Icon name="X" size={18} />
         </button>
-        <div className="p-5 sm:p-8">
-          {done ? (
-            <div className="text-center py-8">
-              <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center" style={{ background: "rgba(186,63,83,0.1)", border: "1px solid rgba(186,63,83,0.3)" }}>
-                <Icon name="CheckCircle" size={32} style={{ color: "#BA3F53" }} />
+        <div className="p-6 sm:p-8">
+          <h2 className="font-heading text-xl font-bold text-white tracking-wider uppercase mb-1">Вступить в ряды</h2>
+          <p className="font-body text-xs mb-6" style={{ color: "#5a5654" }}>Регистрация через Steam — быстро и безопасно</p>
+
+          {/* Шаги */}
+          <div className="space-y-2 mb-6">
+            {[
+              { n: "01", text: "Войди через Steam" },
+              { n: "02", text: "Укажи email для уведомлений" },
+              { n: "03", text: "Получи доступ к серверу" },
+            ].map(s => (
+              <div key={s.n} className="flex items-center gap-3 px-3 py-2" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(154,147,144,0.08)" }}>
+                <span className="font-heading text-xs font-bold flex-shrink-0" style={{ color: "#BA3F53" }}>{s.n}</span>
+                <span className="font-body text-xs" style={{ color: "#9A9390" }}>{s.text}</span>
               </div>
-              <h3 className="font-heading text-xl sm:text-2xl text-white tracking-wider uppercase mb-2">Добро пожаловать!</h3>
-              <p className="font-body text-sm" style={{ color: "#9A9390" }}>Привяжи Steam в личном кабинете.</p>
-              <button onClick={onClose} className="btn-primary mt-6 justify-center">Закрыть</button>
-            </div>
-          ) : (
-            <>
-              <h2 className="font-heading text-xl sm:text-2xl font-bold text-white tracking-wider uppercase mb-5 sm:mb-6">Регистрация</h2>
-              <form className="space-y-4" onSubmit={e => { e.preventDefault(); setDone(true); }}>
-                <input className="input-dark" type="text" placeholder="Логин" value={form.login} onChange={e => setForm({ ...form, login: e.target.value })} required />
-                <input className="input-dark" type="email" placeholder="Email" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} required />
-                <input className="input-dark" type="password" placeholder="Пароль" value={form.password} onChange={e => setForm({ ...form, password: e.target.value })} required />
-                <input className="input-dark" type="password" placeholder="Повторите пароль" value={form.password2} onChange={e => setForm({ ...form, password2: e.target.value })} required />
-                <button type="submit" className="btn-primary w-full justify-center py-4">
-                  <Icon name="UserPlus" size={16} />
-                  Создать аккаунт
-                </button>
-                <a href={STEAM_AUTH_URL} className="mt-2 flex items-center justify-center gap-2 py-3 font-heading text-xs tracking-widest uppercase transition-all duration-200 hover:opacity-90" style={{ background: "rgba(23,40,76,0.6)", border: "1px solid rgba(102,140,204,0.35)", color: "#a8c0e8" }}>
-                  <Icon name="Gamepad2" size={14} /> Войти через Steam
-                </a>
-              </form>
-            </>
-          )}
+            ))}
+          </div>
+
+          {/* Кнопка Steam */}
+          <a
+            href={STEAM_AUTH_URL}
+            className="flex items-center justify-center gap-3 w-full py-4 font-heading text-sm tracking-widest uppercase transition-all duration-300 hover:-translate-y-0.5"
+            style={{ background: "rgba(23,40,76,0.7)", border: "1px solid rgba(102,140,204,0.4)", color: "#a8c0e8" }}
+          >
+            <Icon name="Gamepad2" size={18} />
+            Войти через Steam
+          </a>
+
+          <p className="text-center text-xs font-body mt-4" style={{ color: "#3a3836" }}>
+            Нажимая кнопку, вы соглашаетесь с{" "}
+            <a href="#footer" onClick={onClose} className="hover:underline" style={{ color: "#5a5654" }}>условиями использования</a>
+          </p>
         </div>
       </div>
     </div>
@@ -741,7 +796,7 @@ export default function Index() {
   const [introDone, setIntroDone] = useState(() => {
     return sessionStorage.getItem("da_intro_shown") === "1";
   });
-  const { user, loginWithSteam, logout } = useSteamAuth();
+  const { user, needEmail, loginWithSteam, logout, dismissEmail } = useSteamAuth();
 
   const handleIntroDone = () => {
     sessionStorage.setItem("da_intro_shown", "1");
@@ -769,6 +824,7 @@ export default function Index() {
           <Register />
           <Footer />
           <RegisterModal open={modalOpen} onClose={() => setModalOpen(false)} />
+          {needEmail && user && <EmailModal username={user.username} onClose={dismissEmail} />}
         </>
       )}
     </div>
