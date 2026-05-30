@@ -73,15 +73,17 @@ function Nav({ onRegister }: { onRegister: () => void }) {
 
         <div className="hidden md:flex items-center gap-4">
           <div className="flex items-center gap-3">
-            <a href="https://discord.gg/" target="_blank" rel="noopener" className="transition-opacity hover:opacity-70" style={{ color: "#9A9390" }} title="Discord">
+            <a href="https://discord.gg/tAmjyD3Yp" target="_blank" rel="noopener" className="transition-opacity hover:opacity-70" style={{ color: "#9A9390" }} title="Discord">
               <Icon name="MessageSquare" size={16} />
             </a>
-            <a href="https://vk.com/" target="_blank" rel="noopener" className="transition-opacity hover:opacity-70" style={{ color: "#9A9390" }} title="VK">
+            {/* VK — скрыто, добавим позже */}
+            {/* <a href="https://vk.com/" target="_blank" rel="noopener" className="transition-opacity hover:opacity-70" style={{ color: "#9A9390" }} title="VK">
               <Icon name="Users" size={16} />
-            </a>
-            <a href="https://t.me/" target="_blank" rel="noopener" className="transition-opacity hover:opacity-70" style={{ color: "#9A9390" }} title="Telegram">
+            </a> */}
+            {/* Telegram — скрыто, добавим позже */}
+            {/* <a href="https://t.me/" target="_blank" rel="noopener" className="transition-opacity hover:opacity-70" style={{ color: "#9A9390" }} title="Telegram">
               <Icon name="Send" size={16} />
-            </a>
+            </a> */}
           </div>
           <button onClick={onRegister} className="btn-primary text-sm">Играть</button>
         </div>
@@ -496,10 +498,10 @@ function Register() {
 // --- Footer ---
 function Footer() {
   const socials = [
-    { icon: "MessageSquare", label: "Discord", href: "https://discord.gg/" },
-    { icon: "Send", label: "Telegram", href: "https://t.me/" },
-    { icon: "Users", label: "ВКонтакте", href: "https://vk.com/" },
-    { icon: "Youtube", label: "YouTube", href: "https://youtube.com/" },
+    { icon: "MessageSquare", label: "Discord", href: "https://discord.gg/tAmjyD3Yp", visible: true },
+    { icon: "Send", label: "Telegram", href: "https://t.me/", visible: false },
+    { icon: "Users", label: "ВКонтакте", href: "https://vk.com/", visible: false },
+    { icon: "Youtube", label: "YouTube", href: "https://youtube.com/", visible: false },
   ];
   return (
     <footer id="footer" style={{ background: "#0e0e0e", borderTop: "1px solid rgba(132,153,79,0.1)" }}>
@@ -517,7 +519,7 @@ function Footer() {
               Единственный ролевой проект по The Last Of Us в русскоязычном Garry's Mod.
             </p>
             <div className="flex gap-4">
-              {socials.map((s) => (
+              {socials.filter(s => s.visible).map((s) => (
                 <a key={s.label} href={s.href} target="_blank" rel="noopener" title={s.label}
                   className="w-9 h-9 flex items-center justify-center transition-all duration-200"
                   style={{ border: "1px solid rgba(154,147,144,0.15)", color: "#9A9390" }}
