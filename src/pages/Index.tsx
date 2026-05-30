@@ -129,8 +129,8 @@ function Hero({ onRegister }: { onRegister: () => void }) {
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 pt-20 sm:pt-24 pb-12 sm:pb-20">
         <div className="max-w-3xl">
-          <p className="section-label animate-fade-up opacity-0 delay-100 text-[10px] sm:text-xs">Garry's Mod · Role-Play · The Last Of Us</p>
-          <div className="animate-fade-up opacity-0 delay-200 mb-2 sm:mb-3">
+          <div className="inline-flex flex-col items-start animate-fade-up opacity-0 delay-100 mb-2 sm:mb-3">
+            <p className="section-label text-[10px] sm:text-xs mb-2">Garry's Mod · Role-Play · The Last Of Us</p>
             <img
               src="https://cdn.poehali.dev/projects/95220a86-5ef3-4f3a-b595-17cb404449a0/bucket/defde569-bc99-42f6-81e9-482e3a940414.png"
               alt="DAY AFTER"
