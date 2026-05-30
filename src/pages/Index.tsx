@@ -110,10 +110,19 @@ function Hero({ onRegister }: { onRegister: () => void }) {
   return (
     <section className="relative min-h-screen flex flex-col justify-center overflow-hidden" id="hero">
       <div className="absolute inset-0">
-        <img src={HERO_IMAGE} alt="DAY AFTER" className="w-full h-full object-cover opacity-30" />
-        <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(22,22,22,0.5) 0%, rgba(22,22,22,0.7) 60%, #161616 100%)" }} />
-        <div className="absolute inset-0 opacity-10" style={{ background: "radial-gradient(ellipse at 20% 50%, rgba(132,153,79,0.6) 0%, transparent 60%)" }} />
-        <div className="absolute inset-0 opacity-10" style={{ background: "radial-gradient(ellipse at 80% 30%, rgba(186,63,83,0.4) 0%, transparent 50%)" }} />
+        {/* Акварельный арт — постапокалиптический город с кордицепсом */}
+        <img
+          src="https://cdn.poehali.dev/projects/95220a86-5ef3-4f3a-b595-17cb404449a0/bucket/af85c668-b3f0-45c2-adf7-1b6cd0396775.png"
+          alt=""
+          className="w-full h-full object-cover"
+          style={{ opacity: 0.55, objectPosition: "center 30%" }}
+        />
+        {/* Затемнение снизу — плавный переход в фон сайта */}
+        <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(22,22,22,0.25) 0%, rgba(22,22,22,0.5) 45%, #161616 100%)" }} />
+        {/* Красный ореол — угроза, опасность */}
+        <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse at 75% 20%, rgba(186,63,83,0.18) 0%, transparent 50%)" }} />
+        {/* Зелёный ореол снизу — кордицепс, свечение воды */}
+        <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse at 40% 85%, rgba(132,153,79,0.15) 0%, transparent 45%)" }} />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 pt-24 pb-20">
