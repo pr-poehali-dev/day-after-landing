@@ -630,17 +630,20 @@ function RegisterModal({ open, onClose }: { open: boolean; onClose: () => void }
 // --- Intro Screen ---
 function IntroScreen({ onDone }: { onDone: () => void }) {
   const [phase, setPhase] = useState<"in" | "hold" | "out">("in");
+  const [hidden, setHidden] = useState(false);
 
   useEffect(() => {
     // fade-in:  0 → 900ms
     // hold:   900 → 2800ms
-    // fade-out: 2800 → 4000ms  (1.2s плавное исчезновение)
-    // onDone:   4100ms — сайт показывается уже после полного исчезновения
+    // fade-out: 2800 → 4100ms (1.3s)
+    // скрыть + показать сайт: 4150ms — строго после завершения анимации
     const t1 = setTimeout(() => setPhase("hold"), 900);
     const t2 = setTimeout(() => setPhase("out"), 2800);
-    const t3 = setTimeout(() => onDone(), 4100);
+    const t3 = setTimeout(() => { setHidden(true); onDone(); }, 4150);
     return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };
   }, [onDone]);
+
+  if (hidden) return null;
 
   return (
     <div
@@ -648,8 +651,7 @@ function IntroScreen({ onDone }: { onDone: () => void }) {
       style={{
         background: "#0e0e0e",
         opacity: phase === "out" ? 0 : 1,
-        transition: phase === "in" ? "opacity 0.9s ease-out" : phase === "out" ? "opacity 1.2s ease-in" : "none",
-        pointerEvents: phase === "out" ? "none" : "all",
+        transition: phase === "in" ? "opacity 0.9s ease-out" : phase === "out" ? "opacity 1.3s ease-in" : "none",
       }}
     >
       {/* Фоновый арт */}
@@ -718,17 +720,22 @@ export default function Index() {
 
   return (
     <div className="min-h-screen" style={{ background: "#161616" }}>
-      {!introDone && <IntroScreen onDone={handleIntroDone} />}
-      <Nav onRegister={() => setModalOpen(true)} />
-      <Hero onRegister={() => setModalOpen(true)} />
-      <About />
-      <UTP />
-      <Factions />
-      <Events />
-      <FAQ />
-      <Register />
-      <Footer />
-      <RegisterModal open={modalOpen} onClose={() => setModalOpen(false)} />
+      {!introDone ? (
+        <IntroScreen onDone={handleIntroDone} />
+      ) : (
+        <>
+          <Nav onRegister={() => setModalOpen(true)} />
+          <Hero onRegister={() => setModalOpen(true)} />
+          <About />
+          <UTP />
+          <Factions />
+          <Events />
+          <FAQ />
+          <Register />
+          <Footer />
+          <RegisterModal open={modalOpen} onClose={() => setModalOpen(false)} />
+        </>
+      )}
     </div>
   );
 }
