@@ -200,16 +200,26 @@ function About() {
               Здесь ты не просто играешь — ты <span style={{ color: "#84994F" }}>проживаешь персонажа</span> в мире, где каждый день может стать последним.
             </p>
           </div>
-          <div className="relative">
-            <div className="aspect-video relative overflow-hidden" style={{ border: "1px solid rgba(186,63,83,0.2)" }}>
-              <img src={HERO_IMAGE} alt="DAY AFTER gameplay" className="w-full h-full object-cover opacity-60" />
-              <div className="absolute inset-0" style={{ background: "linear-gradient(135deg, rgba(186,63,83,0.08) 0%, transparent 50%, rgba(132,153,79,0.06) 100%)" }} />
-              <div className="absolute bottom-4 left-4">
-                <div className="font-heading text-sm tracking-widest uppercase" style={{ color: "#BA3F53" }}>◉ Сервер онлайн</div>
+          <div className="relative flex justify-center md:justify-end">
+            {/* Фоновое свечение под артом */}
+            <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse at 50% 60%, rgba(132,153,79,0.12) 0%, transparent 65%)" }} />
+            <div className="relative">
+              <img
+                src="https://cdn.poehali.dev/projects/95220a86-5ef3-4f3a-b595-17cb404449a0/bucket/c54a2533-a861-4d84-a212-2d5a5263f62c.png"
+                alt="Выживший в постапокалиптическом мире"
+                className="w-full max-w-sm md:max-w-md object-contain relative z-10"
+                style={{
+                  filter: "drop-shadow(0 0 40px rgba(132,153,79,0.25)) drop-shadow(0 0 80px rgba(186,63,83,0.12))",
+                }}
+              />
+              {/* Статус сервера */}
+              <div className="absolute bottom-6 left-0 z-20">
+                <div className="flex items-center gap-2 px-3 py-1.5" style={{ background: "rgba(22,22,22,0.85)", border: "1px solid rgba(186,63,83,0.3)" }}>
+                  <span className="w-1.5 h-1.5 rounded-full animate-pulse inline-block" style={{ background: "#BA3F53" }} />
+                  <span className="font-heading text-xs tracking-widest uppercase" style={{ color: "#BA3F53" }}>Сервер онлайн</span>
+                </div>
               </div>
             </div>
-            <div className="absolute -top-3 -left-3 w-12 h-12" style={{ borderTop: "2px solid #BA3F53", borderLeft: "2px solid #BA3F53" }} />
-            <div className="absolute -bottom-3 -right-3 w-12 h-12" style={{ borderBottom: "2px solid #84994F", borderRight: "2px solid #84994F" }} />
           </div>
         </div>
       </div>
